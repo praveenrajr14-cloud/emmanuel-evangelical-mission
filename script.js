@@ -179,7 +179,11 @@ const getYouTubeId = (url) => {
     if (parsed.hostname.includes("youtu.be")) return parsed.pathname.slice(1);
     if (parsed.searchParams.has("v")) return parsed.searchParams.get("v");
     const embedMatch = parsed.pathname.match(/\/embed\/([^/?]+)/);
-    return embedMatch ? embedMatch[1] : "";
+    if (embedMatch) return embedMatch[1];
+    const liveMatch = parsed.pathname.match(/\/live\/([^/?]+)/);
+    if (liveMatch) return liveMatch[1];
+    const shortsMatch = parsed.pathname.match(/\/shorts\/([^/?]+)/);
+    return shortsMatch ? shortsMatch[1] : "";
   } catch {
     return "";
   }
