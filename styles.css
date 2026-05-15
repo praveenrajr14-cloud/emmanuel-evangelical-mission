@@ -135,9 +135,10 @@ a {
   padding: 150px clamp(20px, 5vw, 72px) 84px;
   color: var(--white);
   background:
-    linear-gradient(90deg, rgba(9, 20, 17, 0.82), rgba(9, 20, 17, 0.38) 55%, rgba(9, 20, 17, 0.16)),
-    url("https://source.unsplash.com/LINQ-jgta8Q/1800x1200")
-      center / cover;
+    linear-gradient(90deg, rgba(9, 20, 17, 0.88), rgba(9, 20, 17, 0.58) 48%, rgba(9, 20, 17, 0.18)),
+    linear-gradient(0deg, rgba(9, 20, 17, 0.28), rgba(9, 20, 17, 0.08)),
+    url("https://images.unsplash.com/photo-1691036073751-99c63d5fbaff?auto=format&fit=crop&w=2200&q=85")
+      center 42% / cover;
 }
 
 .page-hero,
