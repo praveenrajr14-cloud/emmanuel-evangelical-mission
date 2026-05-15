@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard | Emmanuel Evangelical Mission</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main>
+      <section class="admin-hero">
+        <p class="eyebrow">Private Dashboard</p>
+        <h1>Website Manager</h1>
+        <p>This page is not linked in the public website navigation. Use this file to manage local events and YouTube links.</p>
+      </section>
+      <section class="section admin" id="admin">
+        <form class="admin-login" id="adminLogin">
+          <label for="adminPassword">Admin password</label>
+          <input id="adminPassword" type="password" placeholder="Enter Vercel ADMIN_PASSWORD" autocomplete="current-password" required />
+          <p>Set this password in Vercel as the `ADMIN_PASSWORD` environment variable.</p>
+        </form>
+        <div class="admin-grid">
+          <form class="admin-form" id="eventForm">
+            <h3>Add Event</h3>
+            <label for="eventTitle">Event title</label>
+            <input id="eventTitle" type="text" placeholder="Fasting Prayer" required />
+            <label for="eventDate">Date and time</label>
+            <input id="eventDate" type="datetime-local" required />
+            <label for="eventLocation">Location</label>
+            <input id="eventLocation" type="text" placeholder="Church hall / Online / City" />
+            <label for="eventDescription">Description</label>
+            <textarea id="eventDescription" rows="4" placeholder="Add details people should know"></textarea>
+            <button class="button primary" type="submit">Save Event</button>
+          </form>
+          <form class="admin-form" id="videoForm">
+            <h3>Add YouTube Message</h3>
+            <label for="videoTitle">Video title</label>
+            <input id="videoTitle" type="text" placeholder="Sunday Worship Message" required />
+            <label for="videoUrl">YouTube link</label>
+            <input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." required />
+            <label for="videoDescription">Description</label>
+            <textarea id="videoDescription" rows="4" placeholder="Short description for viewers"></textarea>
+            <button class="button primary" type="submit">Save Video</button>
+          </form>
+        </div>
+      </section>
+      <section class="section dynamic-section">
+        <div class="section-heading">
+          <div><p class="eyebrow">Preview</p><h2>Saved events and videos.</h2></div>
+        </div>
+        <div class="dynamic-grid" id="eventList" aria-live="polite"></div>
+        <div class="video-grid dashboard-videos" id="videoList" aria-live="polite"></div>
+      </section>
+    </main>
+    <script src="config.js"></script>
+    <script src="bible-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

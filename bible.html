@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bible | Emmanuel Evangelical Mission</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header page-header">
+      <a class="brand" href="index.html" aria-label="Emmanuel Evangelical Mission home">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span><strong>Emmanuel</strong><small>Evangelical Mission</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#events">Events</a>
+        <a href="index.html#messages">Videos</a>
+        <a href="bible.html">Bible</a>
+        <a href="index.html#ai">AI</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero">
+        <p class="eyebrow">Bible</p>
+        <h1>Tamil, Malayalam, and Hindi Bible reader.</h1>
+      </section>
+      <section class="section bible" id="bible">
+        <div class="bible-shell">
+          <div class="bible-controls" aria-label="Bible controls">
+            <label>
+              Language
+              <select id="bibleLanguage">
+                <option value="tamil">Tamil</option>
+                <option value="malayalam">Malayalam</option>
+                <option value="hindi">Hindi</option>
+              </select>
+            </label>
+            <label>
+              Book
+              <select id="bibleBook"></select>
+            </label>
+            <label>
+              Chapter
+              <select id="bibleChapter"></select>
+            </label>
+            <p class="license-note" id="bibleLicense"></p>
+          </div>
+          <article class="bible-reader">
+            <h2 id="bibleTitle"></h2>
+            <div id="bibleText" class="chapter-text"></div>
+          </article>
+        </div>
+      </section>
+    </main>
+    <footer><p>&copy; <span id="year"></span> Emmanuel Evangelical Mission</p><p>Pray for North India</p></footer>
+    <script src="config.js"></script>
+    <script src="bible-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

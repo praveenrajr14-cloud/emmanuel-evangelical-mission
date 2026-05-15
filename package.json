@@ -1,0 +1,12 @@
+{
+  "name": "emmanuel-evangelical-mission",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "check": "node --check script.js && node --check bible-data.js"
+  },
+  "devDependencies": {
+    "vercel": "^48.0.0"
+  }
+}

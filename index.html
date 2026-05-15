@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Emmanuel Evangelical Mission</title>
+    <meta
+      name="description"
+      content="Emmanuel Evangelical Mission is a prayer-centered church community with a heart for North India."
+    />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Emmanuel Evangelical Mission home">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span>
+          <strong>Emmanuel</strong>
+          <small>Evangelical Mission</small>
+        </span>
+      </a>
+
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#events">Events</a>
+        <a href="index.html#messages">Videos</a>
+        <a href="bible.html">Bible</a>
+        <a href="index.html#ai">AI</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+
+    <main id="home">
+      <section class="hero" aria-label="Emmanuel Evangelical Mission">
+        <div class="hero-content">
+          <p class="eyebrow">Pray for North India</p>
+          <h1>Emmanuel Evangelical Mission</h1>
+          <p class="hero-copy">
+            A worshiping family seeking Christ, serving neighbors, and carrying the hope of the Gospel
+            across North India.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#gather">Join Worship</a>
+            <a class="button ghost" href="#events">Upcoming Events</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="notice-band" aria-label="Weekly gathering">
+        <div>
+          <span>Sunday Worship</span>
+          <strong>06:30 PM</strong>
+        </div>
+        <div>
+          <span>Prayer Fellowship</span>
+          <strong>Friday 10:00 AM</strong>
+        </div>
+        <div>
+          <span>Focus</span>
+          <strong>North India</strong>
+        </div>
+      </section>
+
+      <section class="section gather" id="gather">
+        <div>
+          <p class="eyebrow">Gather With Us</p>
+          <h2>There is a place for you here.</h2>
+        </div>
+        <div class="gather-grid">
+          <article>
+            <span class="icon" aria-hidden="true">+</span>
+            <h3>Worship Service</h3>
+            <p>Sundays at 06:30 PM with worship, prayer, preaching, and fellowship.</p>
+          </article>
+          <article>
+            <span class="icon" aria-hidden="true">*</span>
+            <h3>Prayer Meeting</h3>
+            <p>Fridays at 10:00 AM as we intercede for North India and one another.</p>
+          </article>
+          <article>
+            <span class="icon" aria-hidden="true">o</span>
+            <h3>Home Fellowship</h3>
+            <p>Small gatherings for Bible study, encouragement, and pastoral care.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section dynamic-section" id="events">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Events</p>
+            <h2>Upcoming church events.</h2>
+          </div>
+        </div>
+        <div class="dynamic-grid" id="eventList" aria-live="polite"></div>
+      </section>
+
+      <section class="section dynamic-section messages" id="messages">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">YouTube Messages</p>
+            <h2>Sermons, worship, and ministry updates.</h2>
+          </div>
+        </div>
+        <div class="video-grid" id="videoList" aria-live="polite"></div>
+      </section>
+
+      <section class="section ministries" id="ministries">
+        <p class="eyebrow">Ministries</p>
+        <h2>Faith made visible in everyday service.</h2>
+        <div class="ministry-list">
+          <article>
+            <h3>Children & Youth</h3>
+            <p>Teaching the next generation to know Scripture, pray boldly, and follow Jesus.</p>
+          </article>
+          <article>
+            <h3>Outreach</h3>
+            <p>Visiting homes, encouraging families, and sharing the Gospel with gentleness.</p>
+          </article>
+          <article>
+            <h3>Care & Relief</h3>
+            <p>Responding to practical needs through prayer, counsel, and compassionate support.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section ai-section" id="ai">
+        <div class="ai-copy">
+          <p class="eyebrow">AI Ministry Helper</p>
+          <h2>Prepare prayers, event descriptions, and Bible study ideas.</h2>
+          <p>
+            This assistant gives instant local suggestions. A real AI model should be connected through
+            a private backend so API keys never appear in the browser.
+          </p>
+        </div>
+        <form class="ai-panel" id="aiForm">
+          <label for="aiMode">Need help with</label>
+          <select id="aiMode">
+            <option value="prayer">Prayer points</option>
+            <option value="event">Event description</option>
+            <option value="youtube">YouTube description</option>
+            <option value="study">Bible study outline</option>
+          </select>
+          <label for="aiPrompt">Topic</label>
+          <textarea id="aiPrompt" rows="4" placeholder="Example: Youth prayer meeting for North India"></textarea>
+          <button class="button primary" type="submit">Generate</button>
+          <output class="ai-output" id="aiOutput" aria-live="polite"></output>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; <span id="year"></span> Emmanuel Evangelical Mission</p>
+      <p>Pray for North India</p>
+    </footer>
+
+    <script src="config.js"></script>
+    <script src="bible-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

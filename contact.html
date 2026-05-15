@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact | Emmanuel Evangelical Mission</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="site-header page-header">
+      <a class="brand" href="index.html" aria-label="Emmanuel Evangelical Mission home">
+        <span class="brand-mark" aria-hidden="true">E</span>
+        <span><strong>Emmanuel</strong><small>Evangelical Mission</small></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-label="Open navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="index.html#events">Events</a>
+        <a href="index.html#messages">Videos</a>
+        <a href="bible.html">Bible</a>
+        <a href="index.html#ai">AI</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </header>
+    <main>
+      <section class="page-hero">
+        <p class="eyebrow">Contact</p>
+        <h1>Connect with Emmanuel Evangelical Mission.</h1>
+      </section>
+      <section class="section contact">
+        <div>
+          <h2>We would love to hear from you.</h2>
+          <p>Update this section with your church address, phone number, email, and service location.</p>
+        </div>
+        <address>
+          <strong>Service Location</strong>
+          <span>Kaliyakkavila</span>
+          <a href="cont:Y JOHN ROSE">Y JOHNROSE</a>
+          <a href="mailto:yjrchristministry@gmail.com">yjrchristministry@gmail.com</a>
+          <a href="tel:9345547747">+91 9345547747</a>
+        </address>
+      </section>
+      <section class="section prayer" id="prayer">
+        <div class="prayer-copy">
+          <p class="eyebrow">Prayer Wall</p>
+          <h2>Pray for North India.</h2>
+          <p>Bring a prayer focus for your family, city, ministry, or region as we seek the Lord together.</p>
+        </div>
+        <form class="prayer-form">
+          <label for="request">Prayer focus</label>
+          <textarea id="request" name="request" rows="4" placeholder="Write a short prayer focus"></textarea>
+          <button class="button primary" type="submit">Add Prayer</button>
+          <div class="prayer-items" aria-live="polite"></div>
+        </form>
+      </section>
+    </main>
+    <footer><p>&copy; <span id="year"></span> Emmanuel Evangelical Mission</p><p>Pray for North India</p></footer>
+    <script src="config.js"></script>
+    <script src="bible-data.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
