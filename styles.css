@@ -136,7 +136,7 @@ a {
   color: var(--white);
   background:
     linear-gradient(90deg, rgba(9, 20, 17, 0.82), rgba(9, 20, 17, 0.38) 55%, rgba(9, 20, 17, 0.16)),
-    url("https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1800&q=80")
+    url("https://source.unsplash.com/LINQ-jgta8Q/1800x1200")
       center / cover;
 }
 
