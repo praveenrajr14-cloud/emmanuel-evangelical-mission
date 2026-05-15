@@ -489,6 +489,23 @@ h3 {
   padding: clamp(28px, 5vw, 58px);
 }
 
+.bible-source-link {
+  margin: -8px 0 18px;
+}
+
+.bible-source-link a {
+  color: var(--green);
+  font-weight: 800;
+}
+
+.bible-frame {
+  width: 100%;
+  min-height: 72vh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+}
+
 .bible-reader .chapter-text p {
   max-width: 900px;
   margin-bottom: 18px;

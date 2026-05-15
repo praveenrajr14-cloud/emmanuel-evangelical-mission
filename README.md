@@ -35,18 +35,13 @@ The public home page reads `content.json`, so updates appear after Vercel finish
 
 ## Full Bible setup
 
-Full Tamil, Malayalam, and Hindi Bible text must come from a licensed or public-domain source. This project includes a live Bible API proxy for API.Bible.
+The Bible page uses free eBible.org chapter pages for Tamil, Malayalam, and Hindi:
 
-Add these Vercel environment variables:
+- Tamil: Biblica Open Indian Tamil Contemporary Version
+- Malayalam: Malayalam Bible from eBible.org
+- Hindi: Biblica Open Hindi Contemporary Version
 
-```text
-API_BIBLE_KEY=your-api-bible-key
-API_BIBLE_TAMIL_ID=licensed-tamil-bible-id
-API_BIBLE_MALAYALAM_ID=licensed-malayalam-bible-id
-API_BIBLE_HINDI_ID=licensed-hindi-bible-id
-```
-
-Without those variables, the Bible page falls back to sample passages in `bible-data.js`.
+No paid Bible database or environment variables are required.
 
 ## Local testing
 

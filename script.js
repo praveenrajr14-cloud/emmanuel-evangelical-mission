@@ -15,6 +15,8 @@ const bibleChapter = document.querySelector("#bibleChapter");
 const bibleTitle = document.querySelector("#bibleTitle");
 const bibleText = document.querySelector("#bibleText");
 const bibleLicense = document.querySelector("#bibleLicense");
+const bibleFrame = document.querySelector("#bibleFrame");
+const bibleOpenLink = document.querySelector("#bibleOpenLink");
 const aiForm = document.querySelector("#aiForm");
 const aiMode = document.querySelector("#aiMode");
 const aiPrompt = document.querySelector("#aiPrompt");
@@ -310,75 +312,118 @@ if (prayerForm && prayerInput) {
   });
 }
 
-const getBible = () => window.EEM_BIBLE_DATA || {};
-let liveBible = false;
+const bibleTranslations = {
+  tamil: {
+    path: "tamtcv",
+    name: "Biblica Open Indian Tamil Contemporary Version",
+    license: "Tamil Bible: Biblica Open Indian Tamil Contemporary Version, used through eBible.org.",
+  },
+  malayalam: {
+    path: "mal",
+    name: "Malayalam Bible",
+    license: "Malayalam Bible text is loaded through eBible.org.",
+  },
+  hindi: {
+    path: "hincv",
+    name: "Biblica Open Hindi Contemporary Version",
+    license: "Hindi Bible: Biblica Open Hindi Contemporary Version, used through eBible.org.",
+  },
+};
 
-const renderBibleBooks = async () => {
+const bibleBooks = [
+  ["GEN", "Genesis", 50],
+  ["EXO", "Exodus", 40],
+  ["LEV", "Leviticus", 27],
+  ["NUM", "Numbers", 36],
+  ["DEU", "Deuteronomy", 34],
+  ["JOS", "Joshua", 24],
+  ["JDG", "Judges", 21],
+  ["RUT", "Ruth", 4],
+  ["1SA", "1 Samuel", 31],
+  ["2SA", "2 Samuel", 24],
+  ["1KI", "1 Kings", 22],
+  ["2KI", "2 Kings", 25],
+  ["1CH", "1 Chronicles", 29],
+  ["2CH", "2 Chronicles", 36],
+  ["EZR", "Ezra", 10],
+  ["NEH", "Nehemiah", 13],
+  ["EST", "Esther", 10],
+  ["JOB", "Job", 42],
+  ["PSA", "Psalms", 150],
+  ["PRO", "Proverbs", 31],
+  ["ECC", "Ecclesiastes", 12],
+  ["SNG", "Song of Songs", 8],
+  ["ISA", "Isaiah", 66],
+  ["JER", "Jeremiah", 52],
+  ["LAM", "Lamentations", 5],
+  ["EZK", "Ezekiel", 48],
+  ["DAN", "Daniel", 12],
+  ["HOS", "Hosea", 14],
+  ["JOL", "Joel", 3],
+  ["AMO", "Amos", 9],
+  ["OBA", "Obadiah", 1],
+  ["JON", "Jonah", 4],
+  ["MIC", "Micah", 7],
+  ["NAM", "Nahum", 3],
+  ["HAB", "Habakkuk", 3],
+  ["ZEP", "Zephaniah", 3],
+  ["HAG", "Haggai", 2],
+  ["ZEC", "Zechariah", 14],
+  ["MAL", "Malachi", 4],
+  ["MAT", "Matthew", 28],
+  ["MRK", "Mark", 16],
+  ["LUK", "Luke", 24],
+  ["JHN", "John", 21],
+  ["ACT", "Acts", 28],
+  ["ROM", "Romans", 16],
+  ["1CO", "1 Corinthians", 16],
+  ["2CO", "2 Corinthians", 13],
+  ["GAL", "Galatians", 6],
+  ["EPH", "Ephesians", 6],
+  ["PHP", "Philippians", 4],
+  ["COL", "Colossians", 4],
+  ["1TH", "1 Thessalonians", 5],
+  ["2TH", "2 Thessalonians", 3],
+  ["1TI", "1 Timothy", 6],
+  ["2TI", "2 Timothy", 4],
+  ["TIT", "Titus", 3],
+  ["PHM", "Philemon", 1],
+  ["HEB", "Hebrews", 13],
+  ["JAS", "James", 5],
+  ["1PE", "1 Peter", 5],
+  ["2PE", "2 Peter", 3],
+  ["1JN", "1 John", 5],
+  ["2JN", "2 John", 1],
+  ["3JN", "3 John", 1],
+  ["JUD", "Jude", 1],
+  ["REV", "Revelation", 22],
+];
+
+const renderBibleBooks = () => {
   if (!bibleLanguage || !bibleBook) return;
-  const language = bibleLanguage.value;
-  const bible = getBible()[language];
   bibleBook.innerHTML = "";
   bibleChapter.innerHTML = "";
-  bibleText.innerHTML = "";
-  liveBible = false;
+  if (bibleText) bibleText.innerHTML = "";
 
-  try {
-    const response = await fetch(`/api/bible?language=${encodeURIComponent(language)}`);
-    const payload = await response.json();
-    if (payload.configured && Array.isArray(payload.data)) {
-      liveBible = true;
-      payload.data.forEach((book) => {
-        const option = document.createElement("option");
-        option.value = book.id;
-        option.textContent = book.name;
-        bibleBook.append(option);
-      });
-      if (bibleLicense) bibleLicense.textContent = "Full Bible is loaded from your licensed Bible API configuration.";
-      await renderBibleChapters();
-      return;
-    }
-  } catch {
-    liveBible = false;
-  }
-
-  Object.keys(bible.books).forEach((bookName) => {
+  bibleBooks.forEach(([code, name]) => {
     const option = document.createElement("option");
-    option.value = bookName;
-    option.textContent = bookName;
+    option.value = code;
+    option.textContent = name;
     bibleBook.append(option);
   });
 
-  if (bibleLicense) bibleLicense.textContent = bible.licenseNote;
+  if (bibleLicense) bibleLicense.textContent = bibleTranslations[bibleLanguage.value].license;
   renderBibleChapters();
 };
 
-const renderBibleChapters = async () => {
+const renderBibleChapters = () => {
   if (!bibleLanguage || !bibleBook || !bibleChapter) return;
-  if (liveBible) {
-    bibleChapter.innerHTML = "";
-    const response = await fetch(
-      `/api/bible?language=${encodeURIComponent(bibleLanguage.value)}&book=${encodeURIComponent(bibleBook.value)}`
-    );
-    const payload = await response.json();
-    if (payload.configured && Array.isArray(payload.data)) {
-      payload.data.forEach((chapter) => {
-        const option = document.createElement("option");
-        option.value = chapter.id;
-        option.textContent = chapter.reference || `Chapter ${chapter.number}`;
-        bibleChapter.append(option);
-      });
-      await renderBibleText();
-      return;
-    }
-  }
-
-  const bible = getBible()[bibleLanguage.value];
-  const book = bible.books[bibleBook.value];
+  const book = bibleBooks.find(([code]) => code === bibleBook.value) || bibleBooks[0];
   bibleChapter.innerHTML = "";
 
-  book.chapters.forEach((chapter, index) => {
+  Array.from({ length: book[2] }).forEach((_, index) => {
     const option = document.createElement("option");
-    option.value = String(index);
+    option.value = String(index + 1);
     option.textContent = `Chapter ${index + 1}`;
     bibleChapter.append(option);
   });
@@ -386,39 +431,17 @@ const renderBibleChapters = async () => {
   renderBibleText();
 };
 
-const renderBibleText = async () => {
+const renderBibleText = () => {
   if (!bibleLanguage || !bibleBook || !bibleChapter || !bibleTitle || !bibleText) return;
-  if (liveBible) {
-    bibleText.innerHTML = "";
-    bibleTitle.textContent = bibleChapter.options[bibleChapter.selectedIndex]?.textContent || "Bible";
-    const response = await fetch(
-      `/api/bible?language=${encodeURIComponent(bibleLanguage.value)}&chapter=${encodeURIComponent(
-        bibleChapter.value
-      )}`
-    );
-    const payload = await response.json();
-    if (payload.configured && payload.data) {
-      const line = document.createElement("p");
-      line.textContent = payload.data.content || "";
-      bibleText.append(line);
-    }
-    return;
-  }
+  const translation = bibleTranslations[bibleLanguage.value];
+  const book = bibleBooks.find(([code]) => code === bibleBook.value) || bibleBooks[0];
+  const chapter = String(Number(bibleChapter.value) || 1).padStart(2, "0");
+  const chapterUrl = `https://ebible.org/${translation.path}/${book[0]}${chapter}.htm`;
 
-  const bible = getBible()[bibleLanguage.value];
-  const book = bible.books[bibleBook.value];
-  const chapterIndex = Number(bibleChapter.value) || 0;
-  const verses = book.chapters[chapterIndex] || [];
-  bibleTitle.textContent = `${bibleBook.value} ${chapterIndex + 1}`;
+  bibleTitle.textContent = `${translation.name}: ${book[1]} ${Number(bibleChapter.value) || 1}`;
   bibleText.innerHTML = "";
-
-  verses.forEach((verse, index) => {
-    const line = document.createElement("p");
-    const number = document.createElement("sup");
-    number.textContent = String(index + 1);
-    line.append(number, document.createTextNode(` ${verse}`));
-    bibleText.append(line);
-  });
+  if (bibleFrame) bibleFrame.src = chapterUrl;
+  if (bibleOpenLink) bibleOpenLink.href = chapterUrl;
 };
 
 if (bibleLanguage) {
