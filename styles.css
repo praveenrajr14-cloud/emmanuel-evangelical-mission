@@ -567,6 +567,27 @@ h3 {
   font-size: 14px;
 }
 
+.json-export {
+  margin-top: 28px;
+  padding: 28px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--white);
+  box-shadow: 0 12px 38px rgba(23, 34, 30, 0.08);
+}
+
+.json-export textarea {
+  min-height: 320px;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.json-export p {
+  margin: 14px 0 0;
+  color: var(--muted);
+}
+
 .admin-form {
   display: grid;
   gap: 14px;

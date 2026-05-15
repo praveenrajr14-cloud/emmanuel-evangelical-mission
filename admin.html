@@ -11,14 +11,9 @@
       <section class="admin-hero">
         <p class="eyebrow">Private Dashboard</p>
         <h1>Website Manager</h1>
-        <p>This page is not linked in the public website navigation. Use this file to manage local events and YouTube links.</p>
+        <p>Use this page to prepare event and YouTube updates. It creates the `content.json` text you will paste into GitHub.</p>
       </section>
       <section class="section admin" id="admin">
-        <form class="admin-login" id="adminLogin">
-          <label for="adminPassword">Admin password</label>
-          <input id="adminPassword" type="password" placeholder="Enter Vercel ADMIN_PASSWORD" autocomplete="current-password" required />
-          <p>Set this password in Vercel as the `ADMIN_PASSWORD` environment variable.</p>
-        </form>
         <div class="admin-grid">
           <form class="admin-form" id="eventForm">
             <h3>Add Event</h3>
@@ -30,7 +25,7 @@
             <input id="eventLocation" type="text" placeholder="Church hall / Online / City" />
             <label for="eventDescription">Description</label>
             <textarea id="eventDescription" rows="4" placeholder="Add details people should know"></textarea>
-            <button class="button primary" type="submit">Save Event</button>
+            <button class="button primary" type="submit">Add To Draft</button>
           </form>
           <form class="admin-form" id="videoForm">
             <h3>Add YouTube Message</h3>
@@ -40,8 +35,19 @@
             <input id="videoUrl" type="url" placeholder="https://www.youtube.com/watch?v=..." required />
             <label for="videoDescription">Description</label>
             <textarea id="videoDescription" rows="4" placeholder="Short description for viewers"></textarea>
-            <button class="button primary" type="submit">Save Video</button>
+            <button class="button primary" type="submit">Add To Draft</button>
           </form>
+        </div>
+        <div class="json-export">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">GitHub Update</p>
+              <h2>Copy this into content.json.</h2>
+            </div>
+            <button class="button outline" id="copyContent" type="button">Copy JSON</button>
+          </div>
+          <textarea id="contentOutput" rows="14" readonly></textarea>
+          <p>Edit your GitHub `content.json` file, paste this text, commit changes, and Vercel will update the live site.</p>
         </div>
       </section>
       <section class="section dynamic-section">

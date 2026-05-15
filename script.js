@@ -19,6 +19,8 @@ const aiForm = document.querySelector("#aiForm");
 const aiMode = document.querySelector("#aiMode");
 const aiPrompt = document.querySelector("#aiPrompt");
 const aiOutput = document.querySelector("#aiOutput");
+const contentOutput = document.querySelector("#contentOutput");
+const copyContent = document.querySelector("#copyContent");
 
 if (year) year.textContent = new Date().getFullYear();
 
@@ -55,12 +57,11 @@ const defaultEvents = [
 let events = store.get("eem-events", defaultEvents);
 let videos = store.get("eem-videos", []);
 const savedPrayers = store.get("eem-prayers", []);
-let adminPassword = "";
 
 const fetchContent = async () => {
   try {
-    const response = await fetch("/api/content", { cache: "no-store" });
-    if (!response.ok) throw new Error("Content API unavailable");
+    const response = await fetch("content.json", { cache: "no-store" });
+    if (!response.ok) throw new Error("Content file unavailable");
     const content = await response.json();
     events = Array.isArray(content.events) ? content.events : [];
     videos = Array.isArray(content.videos) ? content.videos : [];
@@ -72,22 +73,15 @@ const fetchContent = async () => {
   }
 };
 
-const saveContent = async (payload) => {
-  const response = await fetch("/api/content", {
-    method: "POST",
-    headers: {
-      Authorization: `Bearer ${adminPassword}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(payload)
-  });
-
-  const content = await response.json();
-  if (!response.ok) throw new Error(content.error || "Unable to save content");
-  events = Array.isArray(content.events) ? content.events : [];
-  videos = Array.isArray(content.videos) ? content.videos : [];
+const saveDraft = () => {
   store.set("eem-events", events);
   store.set("eem-videos", videos);
+  renderContentOutput();
+};
+
+const renderContentOutput = () => {
+  if (!contentOutput) return;
+  contentOutput.value = JSON.stringify({ events, videos }, null, 2);
 };
 
 const updateHeader = () => {
@@ -166,14 +160,10 @@ const renderEvents = () => {
         const actions = document.createElement("div");
         actions.className = "card-actions";
         actions.append(
-          createButton("Delete", async () => {
-            adminPassword = document.querySelector("#adminPassword")?.value || adminPassword;
-            try {
-              await saveContent({ type: "delete-event", id: eventItem.id });
-              renderEvents();
-            } catch (error) {
-              alert(error.message);
-            }
+          createButton("Delete", () => {
+            events = events.filter((item) => item.id !== eventItem.id);
+            saveDraft();
+            renderEvents();
           })
         );
         card.append(actions);
@@ -235,14 +225,10 @@ const renderVideos = () => {
       const actions = document.createElement("div");
       actions.className = "card-actions";
       actions.append(
-        createButton("Delete", async () => {
-          adminPassword = document.querySelector("#adminPassword")?.value || adminPassword;
-          try {
-            await saveContent({ type: "delete-video", id: video.id });
-            renderVideos();
-          } catch (error) {
-            alert(error.message);
-          }
+        createButton("Delete", () => {
+          videos = videos.filter((item) => item.id !== video.id);
+          saveDraft();
+          renderVideos();
         })
       );
       body.append(actions);
@@ -254,41 +240,43 @@ const renderVideos = () => {
 };
 
 if (eventForm) {
-  eventForm.addEventListener("submit", async (event) => {
+  eventForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    adminPassword = document.querySelector("#adminPassword")?.value || adminPassword;
-    try {
-      await saveContent({
-        type: "event",
-        title: document.querySelector("#eventTitle").value.trim(),
-        date: document.querySelector("#eventDate").value,
-        location: document.querySelector("#eventLocation").value.trim(),
-        description: document.querySelector("#eventDescription").value.trim()
-      });
-      eventForm.reset();
-      renderEvents();
-    } catch (error) {
-      alert(error.message);
-    }
+    events.push({
+      id: crypto.randomUUID(),
+      title: document.querySelector("#eventTitle").value.trim(),
+      date: document.querySelector("#eventDate").value,
+      location: document.querySelector("#eventLocation").value.trim(),
+      description: document.querySelector("#eventDescription").value.trim(),
+    });
+    saveDraft();
+    eventForm.reset();
+    renderEvents();
   });
 }
 
 if (videoForm) {
-  videoForm.addEventListener("submit", async (event) => {
+  videoForm.addEventListener("submit", (event) => {
     event.preventDefault();
-    adminPassword = document.querySelector("#adminPassword")?.value || adminPassword;
-    try {
-      await saveContent({
-        type: "video",
-        title: document.querySelector("#videoTitle").value.trim(),
-        url: document.querySelector("#videoUrl").value.trim(),
-        description: document.querySelector("#videoDescription").value.trim()
-      });
-      videoForm.reset();
-      renderVideos();
-    } catch (error) {
-      alert(error.message);
-    }
+    videos.unshift({
+      id: crypto.randomUUID(),
+      title: document.querySelector("#videoTitle").value.trim(),
+      url: document.querySelector("#videoUrl").value.trim(),
+      description: document.querySelector("#videoDescription").value.trim(),
+    });
+    saveDraft();
+    videoForm.reset();
+    renderVideos();
+  });
+}
+
+if (copyContent && contentOutput) {
+  copyContent.addEventListener("click", async () => {
+    await navigator.clipboard.writeText(contentOutput.value);
+    copyContent.textContent = "Copied";
+    window.setTimeout(() => {
+      copyContent.textContent = "Copy JSON";
+    }, 1800);
   });
 }
 
@@ -475,6 +463,7 @@ if (aiForm) {
 
 const initContent = async () => {
   await fetchContent();
+  renderContentOutput();
   renderEvents();
   renderVideos();
 };

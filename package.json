@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vercel dev",
-    "check": "node --check script.js && node --check bible-data.js"
+    "check": "node --check script.js && node --check bible-data.js && node --check api/bible.js"
   },
   "devDependencies": {
     "vercel": "^48.0.0"

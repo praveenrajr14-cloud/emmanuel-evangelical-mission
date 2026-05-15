@@ -1,6 +1,6 @@
 # Emmanuel Evangelical Mission Website
 
-This site is ready for Vercel hosting with separate public pages and a hidden admin dashboard.
+This site is ready for free Vercel hosting with separate public pages and a hidden content helper dashboard.
 
 ## Pages
 
@@ -8,29 +8,30 @@ This site is ready for Vercel hosting with separate public pages and a hidden ad
 - `about.html` - about page
 - `contact.html` - contact and prayer wall
 - `bible.html` - Tamil, Malayalam, Hindi Bible reader
-- `admin.html` - dashboard for events and YouTube links
+- `admin.html` - helper page for preparing event and YouTube updates
 
-`admin.html` is not linked from the public navigation, but real privacy requires `ADMIN_PASSWORD`.
+`admin.html` is not linked from the public navigation. It does not write to the live website directly; it prepares JSON that you paste into `content.json` on GitHub.
 
 ## Vercel setup
 
 1. Push this folder to GitHub.
 2. Import the project in Vercel.
-3. Add Redis/KV storage in Vercel or Upstash Redis.
-4. Add these environment variables in Vercel:
+3. Deploy.
 
-```text
-ADMIN_PASSWORD=choose-a-strong-password
-KV_REST_API_URL=your-redis-rest-url
-KV_REST_API_TOKEN=your-redis-rest-token
-```
+No Redis, KV, or paid database is required for events and YouTube links.
 
-If your Redis provider names the variables differently, the API also accepts:
+## Updating events and YouTube videos
 
-```text
-UPSTASH_REDIS_REST_URL=your-redis-rest-url
-UPSTASH_REDIS_REST_TOKEN=your-redis-rest-token
-```
+1. Open `/admin.html` on your website.
+2. Add event or YouTube details.
+3. Copy the generated JSON.
+4. Open `content.json` in GitHub.
+5. Click edit.
+6. Replace the whole file with the copied JSON.
+7. Commit changes.
+8. Vercel redeploys automatically.
+
+The public home page reads `content.json`, so updates appear after Vercel finishes redeploying.
 
 ## Full Bible setup
 

@@ -1,0 +1,19 @@
+{
+  "events": [
+    {
+      "id": "sunday-worship",
+      "title": "Sunday Worship Service",
+      "date": "2026-05-17T18:30",
+      "location": "Emmanuel Evangelical Mission",
+      "description": "Join us for worship, prayer, Bible teaching, and fellowship."
+    },
+    {
+      "id": "friday-prayer",
+      "title": "Friday Prayer Fellowship",
+      "date": "2026-05-22T10:00",
+      "location": "Church prayer hall",
+      "description": "A focused time of intercession for families, leaders, and North India."
+    }
+  ],
+  "videos": []
+}
